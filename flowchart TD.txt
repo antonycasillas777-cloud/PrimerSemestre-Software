@@ -1,0 +1,44 @@
+flowchart TD
+    A([Inicio]) --> B[/Ingresar zona<br/>1: Local, 2: Nacional/]
+    B --> C[/Ingresar peso en kg<br/>0.1 a 30/]
+
+    C --> D{¿Peso < 0.1<br/>o Peso > 30?}
+
+    D -- Sí --> E[/Mostrar error:<br/>El peso debe estar entre 0.1 kg y 30 kg/]
+    E --> Z([Fin])
+
+    D -- No --> F[/Ingresar tipo de servicio<br/>1: Normal, 2: Exprés/]
+    F --> G[/¿Es cliente frecuente?<br/>1: Sí, 2: No/]
+
+    G --> H{¿Zona == 1?}
+    H -- Sí --> I[costoBase = 5.0]
+    H -- No --> J[costoBase = 10.0]
+
+    I --> K[recargoPeso = 0.0]
+    J --> K
+
+    K --> L{¿Peso > 10?}
+
+    L -- Sí --> M[recargoPeso = (peso - 10) × 2.0]
+    L -- No --> N[recargoPeso = 0.0]
+
+    M --> O[subtotal = costoBase + recargoPeso]
+    N --> O
+
+    O --> P{¿TipoServicio == 2?}
+
+    P -- Sí --> Q[subtotal = subtotal × 1.20]
+    P -- No --> R[subtotal sin recargo]
+
+    Q --> S[total = subtotal]
+    R --> S
+
+    S --> T{¿EsFrecuente == 1?}
+
+    T -- Sí --> U[total = total × 0.90]
+    T -- No --> V[total sin descuento]
+
+    U --> W[/Mostrar Costo total del envío/]
+    V --> W
+
+    W --> Z([Fin])
